@@ -28,6 +28,10 @@ export class HashMap {
   }
 
   set (key, value) {
+    const limit = this.#capacity * this.#loadFactor;
+
+    if (this.length() >= limit) this.expand();
+
     const index = this.hash(key);
 
     if (this.#list[index]) {
@@ -185,6 +189,15 @@ export class HashMap {
     })
 
     return keys;
+  }
+
+  expand () {
+    this.#capacity *= 2;
+    let entries = this.entries();
+    this.clear();
+    entries.forEach(node => {
+      this.set(node[0], node[1]);
+    })
   }
 
   get list () {
