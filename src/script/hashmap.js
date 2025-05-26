@@ -132,6 +132,10 @@ export class HashMap {
     return count;
   }
 
+  clear () {
+    this.#list = [];
+  }
+
   get list () {
     return this.#list;
   }
