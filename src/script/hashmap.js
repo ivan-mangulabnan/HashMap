@@ -20,6 +20,10 @@ export class HashMap {
       hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.#capacity;
     }
 
+    if (hashCode < 0 || hashCode >= this.#capacity) {
+      throw new Error("Trying to access index out of bounds");
+    }
+
     return hashCode;
   }
 
@@ -82,6 +86,34 @@ export class HashMap {
     }
 
     return false;
+  }
+
+  remove (key) {
+    const index = this.hash(key);
+
+    if (!this.#list[index]) return false;
+
+    let curr = this.#list[index];
+    let prev;
+
+    while(curr) {
+      if (curr.key === key) {
+        break;
+      }
+      prev = curr;
+      curr = curr.next;
+    }
+    
+    if (curr.key !== key) return false;
+
+    if (prev) {
+      prev.next = curr.next;
+      return true;
+    } else {
+      this.#list[index] = curr.next;
+    }
+
+    return true;
   }
 
   get list () {
