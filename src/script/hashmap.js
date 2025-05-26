@@ -136,6 +136,23 @@ export class HashMap {
     this.#list = [];
   }
 
+  keys () {
+    const keys = [];
+
+    this.#list.forEach(node => {
+      if (node.key) {
+        let temp = node;
+
+        while (temp) {
+          keys.push(temp.key);
+          temp = temp.next;
+        }
+      }
+    })
+
+    return keys;
+  }
+
   get list () {
     return this.#list;
   }
