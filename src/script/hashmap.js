@@ -199,8 +199,4 @@ export class HashMap {
       this.set(node[0], node[1]);
     })
   }
-
-  get list () {
-    return this.#list;
-  }
 }
