@@ -69,6 +69,21 @@ export class HashMap {
     return temp ? temp.value : null;
   }
 
+  has (key) {
+    const index = this.hash(key);
+
+    if (!this.#list[index]) return false;
+
+    let temp = this.#list[index];
+
+    while(temp) {
+      if (temp.key === key) return true;
+      temp = temp.next;
+    }
+
+    return false;
+  }
+
   get list () {
     return this.#list;
   }
