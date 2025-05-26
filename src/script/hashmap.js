@@ -24,10 +24,31 @@ export class HashMap {
   }
 
   set (key, value) {
-    const node = new Node(key, value);
     const index = this.hash(key);
+
+    if (this.#list[index]) {
+      const target = this.#list[index];
+
+      let temp = target;
+
+      while(temp) {
+        if (temp.key === key || !temp.next) {
+          break;
+        }
+        temp = temp.next;
+      }
+
+      if (temp.key === key) {
+        temp.value = value;
+        return;
+      }
+
+      temp.next = new Node(key, value);
+      return;
+    }
+
+    const node = new Node(key, value);
     this.#list[index] = node;
-    return this.#list;
   }
 
   get list () {
