@@ -116,6 +116,22 @@ export class HashMap {
     return true;
   }
 
+  length () {
+    let count = 0;
+
+    for (let i = 0; i < this.#list.length; i++) {
+      if (this.#list[i]) {
+        let temp = this.#list[i];
+        while(temp) {
+          count++;
+          temp = temp.next;
+        }
+      }
+    }
+
+    return count;
+  }
+
   get list () {
     return this.#list;
   }
